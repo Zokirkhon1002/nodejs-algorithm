@@ -18,8 +18,12 @@ const getAllFoods = async (req, res) => {
 // Desc:   get one food by Id
 const getFoodByID = async (req, res) => {
   try {
-    let id = +req.params.id;
-    let food = foods.find((e) => e.id === id);
+    let id = req.params.id;
+    let food = foods.find(
+      (e) =>
+        e.id == id ||
+        e.name.toLocaleLowerCase().includes(id.toLocaleLowerCase())
+    );
 
     if (!food) return res.status(404).json({ msg: "Not Found!" });
 
