@@ -36,10 +36,11 @@ const getDrinkById = async (req, res) => {
 // Desc:   Adding new drink to route which is '/drinks'
 const addingNewDrink = async (req, res) => {
   try {
-    let { name } = req.body;
+    let { name, url } = req.body;
     let newDrink = {
       id: drinks.length + 1,
       name,
+      url,
     };
     drinks.push(newDrink);
 
@@ -78,10 +79,10 @@ const updateDrinkById = async (req, res) => {
 
     if (!drink) return res.status(404).json({ msg: "Not Found" });
 
-    const { name } = req.body;
+    const { name, url } = req.body;
     let indexOfUpdatingDrink = drinks.findIndex((e) => e.id === id);
 
-    let updatedDrink = { id, name };
+    let updatedDrink = { id, name, url };
 
     drinks[indexOfUpdatingDrink] = updatedDrink;
 
