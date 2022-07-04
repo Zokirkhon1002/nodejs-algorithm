@@ -5,6 +5,8 @@ require("dotenv").config();
 
 const Mobile = require("./routes/mobileRoute");
 const Laptop = require("./routes/laptopRoute");
+const SignUp = require("./routes/log/sign-up");
+const SignIn = require("./routes/log/sign-in");
 
 // initialize
 const app = express();
@@ -30,6 +32,12 @@ app.use("/mobile", Mobile);
 
 // mobile route
 app.use("/laptop", Laptop);
+
+// sign-up route
+app.use("/sign-up", SignUp);
+
+// sign-up route
+app.use("/sign-in", SignIn);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
