@@ -104,7 +104,7 @@ const addNewProduct = async (req, res) => {
     });
 
     if (!newProduct) {
-      return res.status(404).json({
+      return res.status(401).json({
         state: false,
         msg: "can not added",
         data: newProduct,
@@ -114,7 +114,7 @@ const addNewProduct = async (req, res) => {
     const savedProduct = await newProduct.save();
 
     if (!newProduct) {
-      return res.status(404).json({
+      return res.status(401).json({
         state: false,
         msg: "can not added",
         data: savedProduct,
