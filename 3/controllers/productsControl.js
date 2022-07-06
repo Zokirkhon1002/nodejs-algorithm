@@ -42,7 +42,7 @@ const getProductByCategory = async (req, res) => {
     res.status(200).json({
       state: true,
       msg: "successfully found!",
-      product: products,
+      data: products,
     });
   } catch (err) {
     res.send(err);
@@ -54,7 +54,7 @@ const getProductByCategory = async (req, res) => {
 const getProductBySearch = async (req, res) => {
   try {
     const products = await Products.find();
-    const { title } = req.query;
+    const { title: j } = req.query;
 
     if (!products.length) {
       return res.status(404).json({
@@ -64,13 +64,13 @@ const getProductBySearch = async (req, res) => {
       });
     }
     const filteredProducts = products.filter(({ title: i }) =>
-      i.toLowerCase().includes(title.toLowerCase())
+      i.toLowerCase().includes(j.toLowerCase())
     );
 
     if (!filteredProducts.length) {
       return res.status(404).json({
         state: false,
-        msg: "This product is not defined",
+        msg: "Not Found!",
         data: filteredProducts,
       });
     }
@@ -78,7 +78,7 @@ const getProductBySearch = async (req, res) => {
     res.status(200).json({
       state: true,
       msg: "successfully found!",
-      product: filteredProducts,
+      data: filteredProducts,
     });
   } catch (err) {
     res.send(err);
@@ -116,7 +116,7 @@ const addNewProduct = async (req, res) => {
     if (!newProduct) {
       return res.status(401).json({
         state: false,
-        msg: "can not added",
+        msg: "can not saved",
         data: savedProduct,
       });
     }
@@ -124,7 +124,7 @@ const addNewProduct = async (req, res) => {
     res.json({
       state: true,
       msg: "successfully created",
-      added: savedProduct,
+      data: savedProduct,
     });
   } catch (err) {
     res.send(err);

@@ -5,7 +5,7 @@ const {
   addNewProduct,
   getProductByCategory,
   getProductBySearch,
-} = require("../controllers/products");
+} = require("../controllers/productsControl");
 
 router.get("/", getAllProducts);
 router.get("/category/:category", getProductByCategory);
