@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    text-align: center;
+    padding-top: 50px;
+}
+.myForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    justify-content: space-between;
+    height: 300px;
+}
+.inp_msg {
+    width: 250px;
+    height: 200px;
+}
+#submit, .inp_value,.inp_msg {
+    padding: 10px 20px;
+}

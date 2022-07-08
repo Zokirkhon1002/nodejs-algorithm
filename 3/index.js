@@ -5,6 +5,8 @@ require("dotenv").config();
 
 // importing routes
 const productsRoute = require("./routes/products");
+const signUpRoute = require("./routes/log/signUp");
+const signInRoute = require("./routes/log/signIn");
 
 const app = express();
 
@@ -28,6 +30,12 @@ mongoose
 app.get("/", async (req, res) => {
   res.send("App is running perfectly");
 });
+
+// sign up route
+app.use("/user", signUpRoute);
+
+// sign in route
+app.use("/user", signInRoute);
 
 // products route
 app.use("/products", productsRoute);
