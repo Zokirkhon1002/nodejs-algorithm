@@ -7,9 +7,11 @@ const {
   getProductBySearch,
 } = require("../controllers/productsControl");
 
+const { auth } = require("../middleware/auth");
+
 router.get("/", getAllProducts);
 router.get("/category/:category", getProductByCategory);
 router.get("/search", getProductBySearch);
-router.post("/", addNewProduct);
+router.post("/", auth, addNewProduct);
 
 module.exports = router;

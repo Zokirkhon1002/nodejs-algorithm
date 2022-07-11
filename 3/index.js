@@ -7,6 +7,7 @@ require("dotenv").config();
 const productsRoute = require("./routes/products");
 const signUpRoute = require("./routes/log/signUp");
 const signInRoute = require("./routes/log/signIn");
+const privateRoute = require("./routes/private");
 
 const app = express();
 
@@ -39,6 +40,9 @@ app.use("/user", signInRoute);
 
 // products route
 app.use("/products", productsRoute);
+
+// private route
+app.use("/private", privateRoute);
 
 // Listinging
 let PORT = process.env.PORT || 5000;

@@ -1,9 +1,9 @@
 // @ts-nocheck
-let token = "";
+let token = "5557004470:AAGutwvciz-x_feisoVzpvXAyqHXe-lDkHM";
 
 let link = `https://api.telegram.org/bot${token}/getUpdates`;
 
-let chatId = "";
+let chatId = "-1001532430174";
 
 myForm.addEventListener("submit", (e) => {
   e.preventDefault();

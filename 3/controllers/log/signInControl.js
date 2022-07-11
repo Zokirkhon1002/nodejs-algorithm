@@ -57,7 +57,11 @@ const signIn = async (req, res) => {
     let privateKey = process.env.PRIVATE_KEY;
 
     // creating token
-    let token = jwt.sign({ username: user.username, _id: user._id }, privateKey);
+    let token = jwt.sign(
+      { username: user.username, _id: user._id },
+      privateKey,
+      { expiresIn: 60 }
+    );
 
     // authName
     let authName = process.env.AUTH_TOKEN_NAME;
