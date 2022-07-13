@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import axios from "axios";
+import CreateProducts from "../../components/createProduct/CreateProducts";
+import GetProduct from "../../components/getProduct/GetProduct";
 
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/products")
+      .then((i) => console.log("ok"))
+      .catch((e) => console.log(e));
+  }, []);
 
-export default Home
+  return (
+    <div>
+      <h1>Home</h1>
+      <CreateProducts />
+      <GetProduct />
+    </div>
+  );
+};
+
+export default Home;

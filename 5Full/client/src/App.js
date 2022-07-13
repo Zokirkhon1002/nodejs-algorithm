@@ -6,7 +6,7 @@ import Home from "./router/home/Home";
 function App() {
   return (
     <div className="App">
-      <h1>for Navbar</h1>
+      <h1>for Navbar App.js</h1>
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />

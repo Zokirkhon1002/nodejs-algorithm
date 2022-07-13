@@ -6,7 +6,7 @@ import { config } from "dotenv";
 config();
 
 // routes importing
-import tempRoute from "./routes/temp.js";
+import tempRoute from "./routes/product.js";
 
 const app = express();
 app.use(json());
@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
 });
 
 // Temp Route
-app.use("/temp", tempRoute);
+app.use("/products", tempRoute);
 
 let PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`server running on port: ${PORT}`));
