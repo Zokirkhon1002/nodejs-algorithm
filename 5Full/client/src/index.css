@@ -1,6 +1,4 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
 }
@@ -21,4 +19,11 @@ h1,h2,p,select {
 img {
   width: 200px;
   height: 200px;
+}
+nav {
+  display: flex;
+
+}
+nav * {
+  margin:30px;
 }

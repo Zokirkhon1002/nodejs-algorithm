@@ -135,10 +135,68 @@ const addNewProduct = async (req, res) => {
     res.send(err);
   }
 };
+// Method: DELETE
+// Desc:   Removing a laptop by id
+const deleteProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
 
+    let removedProduct = await Products.findByIdAndRemove(id);
+
+    if (!removedProduct) {
+      return res.status(404).json({
+        state: false,
+        msg: "Not Found!",
+        data: [],
+      });
+    }
+
+    return res.status(200).json({
+      state: true,
+      msg: "deleted successfully",
+      data: removedProduct,
+    });
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+// Method: PUT
+// Desc:   Updating a laptop by id
+const updateLaptopById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, price, category, url } = req.body;
+
+    const updatedProduct = await Products.findByIdAndUpdate(id, {
+      title,
+      category,
+      price,
+      url,
+    });
+
+    if (!updatedProduct) {
+      return res.status(404).json({
+        state: false,
+        msg: "Not Found!",
+        data: [],
+      });
+    }
+
+    return res.status(200).json({
+      state: true,
+      msg: "updated successfully",
+      data: updatedProduct,
+    });
+  } catch (err) {
+    res.send(err);
+  }
+};
 export {
   getAllProducts,
   getProductByCategory,
   getProductBySearch,
   addNewProduct,
+  deleteProductById,
+  updateLaptopById,
 };
