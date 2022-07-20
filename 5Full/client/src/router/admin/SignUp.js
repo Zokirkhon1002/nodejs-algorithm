@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import axios from "../../api/axios";
 import { useHistory } from "react-router-dom";
 
-const Admin = ({ setSenseForToken }) => {
+const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState({});
-  const [errorMessage, setErrorMessage] = useState(false);
 
   const history = useHistory();
 
@@ -17,40 +16,26 @@ const Admin = ({ setSenseForToken }) => {
     // console.log(newUser);
 
     axios
-      .post(`/admin/auth`, newUser)
+      .post(`/admin`, newUser)
       .then((res) => {
-        // console.log("ok");
         // console.log(res.data);
         setMessage(res.data);
-        setErrorMessage(false);
-        let token = res.data["auth-token"];
-        if (token) {
-          localStorage.setItem("auth-token", token);
-        }
         setTimeout(() => {
-          history.push("/");
+          history.push("/admin/auth");
           setMessage({});
         }, 2000);
       })
       .catch(({ response: err }) => {
         // console.log("false");
-        setMessage(err.data);
-        setErrorMessage(true);
         // console.log(err.data);
+        setMessage(err.data);
       });
-  };
-
-  const handleSignInOrOut = () => {
-    history.push("/admin");
   };
 
   return (
     <div>
-      <button onClick={handleSignInOrOut}>Sign Up</button>
-      <h1>Admin Sign In</h1>
-      <h2 style={{ backgroundColor: errorMessage ? "red" : "green" }}>
-        {message ? message.msg : ""}
-      </h2>
+      <h1>Admin Sign Up</h1>
+      <h2>{message.state ? message.msg : ""}</h2>
       <form onSubmit={handleSubmit}>
         <input
           onChange={(e) => setUsername(e.target.value)}
@@ -70,4 +55,4 @@ const Admin = ({ setSenseForToken }) => {
   );
 };
 
-export default Admin;
+export default SignUp;

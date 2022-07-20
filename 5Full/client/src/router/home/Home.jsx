@@ -1,8 +1,32 @@
+/* eslint-disable no-dupe-keys */
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../api/axios";
+import axiosOrigin from "axios";
+import { useHistory } from "react-router-dom";
 
-const Home = () => {
+// api
+
+const Home = ({ senseForToken }) => {
+  const [token, setToken] = useState("");
+  const [forToken, setForToken] = useState(true);
+
+  useEffect(() => {
+    let tokenFromLocal = localStorage.getItem("auth-token");
+    setToken(tokenFromLocal);
+    setForToken(true);
+  }, [senseForToken, forToken]);
+
+  const authAxios = axiosOrigin.create({
+    baseURL: "http://localhost:5000",
+    headers: {
+      "auth-token": `${token}`,
+    },
+  });
+
+  const history = useHistory();
+
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -21,7 +45,7 @@ const Home = () => {
 
   const createProduct = (e) => {
     e.preventDefault();
-    let newProduct = {
+    let body = {
       title,
       price,
       url,
@@ -30,20 +54,29 @@ const Home = () => {
 
     if (isUpdate) {
       setIsUpdate(false);
-      axios
-        .put(`http://localhost:5000/products/${idForUpdate}`, newProduct)
-        .then((res) => {
-          alert("successfully updated");
-          setTemp(false);
-        })
-        .catch(({ response }) => setData(response.data));
-    } else {
-      axios
-        .post("http://localhost:5000/products", newProduct)
+      authAxios
+        .put(`/products/${idForUpdate}`, body)
         .then((res) => {
           setData(res.data);
+          setTemp(false);
         })
-        .catch(({ response }) => setData(response.data));
+        .catch(({ response }) => {
+          setData(response.data);
+          setToken("");
+        });
+    } else {
+      authAxios
+        .post(`/products`, body)
+        .then((res) => {
+          setData(res.data);
+          // console.log(res);
+          setTemp(false);
+        })
+        .catch(({ response }) => {
+          setData(response.data);
+          setToken("");
+          // console.log(response);
+        });
     }
     setTitle("");
     setPrice("");
@@ -51,50 +84,65 @@ const Home = () => {
     setUrl("");
   };
 
-  if (data) {
-    console.log(data);
-  }
+  // if (data) {
+  //   console.log(data);
+  // }
 
   // get products
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/products")
+      .get(`/products`)
       .then((res) => {
         setAllData(res.data);
       })
-      .catch((e) => console.log(e));
+      .catch(({ response }) => {
+        // console.log(response);
+        setData(response.data);
+      });
 
     if (category2 === "all") {
       axios
-        .get("http://localhost:5000/products")
+        .get(`/products`)
         .then((res) => {
           setData2(res.data);
           setTemp(true);
         })
-        .catch((e) => console.log(e));
+        .catch(({ response }) => {
+          // console.log(response);
+          setData(response.data);
+        });
     } else {
       axios
-        .get(`http://localhost:5000/products/category/${category2}`)
+        .get(`/products/category/${category2}`)
         .then((res) => {
           setData2(res.data);
           setTemp(true);
         })
-        .catch((e) => console.log(e));
+        .catch(({ response }) => {
+          // console.log(response);
+          setData(response.data);
+        });
     }
   }, [category2, temp]);
 
   const handleDelete = (id) => {
     let confirmation = window.confirm("Do you want to delete?");
+    window.scrollTo(0, 0);
 
     if (confirmation) {
-      axios
-        .delete(`http://localhost:5000/products/${id}`)
+      authAxios
+        .delete(`/products/${id}`)
         .then((res) => {
-          alert(res.data.msg);
+          setData(res.data);
+          // console.log(res.data);
           setTemp(false);
         })
-        .catch((e) => console.log(e));
+        .catch(({ response }) => {
+          setData(response.data);
+          setToken("");
+          // console.log(response);
+        });
     } else {
       return;
     }
@@ -111,9 +159,28 @@ const Home = () => {
     setCategory(i.category);
   };
 
+  const handleSignInOrOut = () => {
+    if (token?.length) {
+      localStorage.removeItem("auth-token");
+      setForToken(false);
+      setTemp(false);
+    } else {
+      history.push("/admin/auth");
+    }
+  };
+
   return (
     <div>
       <div>
+        <p
+          style={{ textAlign: "right", color: token?.length ? "green" : "red" }}
+        >
+          {token?.length ? "Logged In" : "Logged Out, You have to login first!"}
+        </p>
+        <button onClick={handleSignInOrOut}>
+          {token?.length ? "Sign Out" : "Sign In"}
+        </button>
+
         <h1>CreateProducts</h1>
         <h2 style={{ backgroundColor: data && data.state ? "green" : "red" }}>
           {data && data.msg}
@@ -124,6 +191,7 @@ const Home = () => {
             onChange={(e) => setTitle(e.target.value)}
             name="title"
             type="text"
+            required
             placeholder="title..."
           />
           <input
@@ -131,6 +199,7 @@ const Home = () => {
             onChange={(e) => setPrice(e.target.value)}
             name="price"
             type="text"
+            required
             placeholder="price..."
           />
           <input
@@ -138,6 +207,7 @@ const Home = () => {
             onChange={(e) => setUrl(e.target.value)}
             name="url"
             type="text"
+            required
             placeholder="url..."
           />
           <select
