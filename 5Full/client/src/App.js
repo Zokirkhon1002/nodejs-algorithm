@@ -1,6 +1,6 @@
 // @ts-nocheck
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   NavLink,
@@ -12,8 +12,6 @@ import Admin from "./router/admin/Admin";
 import SignUp from "./router/admin/SignUp";
 
 function App() {
-  const [senseForToken, setSenseForToken] = useState(true);
-
   return (
     <div className="App">
       <Router>
@@ -28,14 +26,10 @@ function App() {
           <Route
             exact
             path="/"
-            component={() => <Home senseForToken={senseForToken} />}
+            component={() => <Home />}
           />
           <Route exact path="/admin/auth" component={Admin} />
-          <Route
-            exact
-            path="/admin"
-            component={() => <SignUp setSenseForToken={setSenseForToken} />}
-          />
+          <Route exact path="/admin" component={() => <SignUp />} />
         </Switch>
       </Router>
     </div>

@@ -4,7 +4,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
-console.warn = function(){};
+// console.warn = function () {};
+console.error = function () {};
 
 ReactDOM.render(
   <React.StrictMode>

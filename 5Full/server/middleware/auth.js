@@ -25,15 +25,15 @@ const auth = (req, res, next) => {
     } catch (err) {
       res.status(401).json({
         state: false,
-        msg: `${err.name} => ${err.message}`,
+        msg: `Invalid Token`,
         data: [],
       });
     }
   } catch (error) {
     res.status(500).json({
       state: false,
-      msg: err,
-      data: false,
+      msg: error,
+      data: [],
     });
   }
 };

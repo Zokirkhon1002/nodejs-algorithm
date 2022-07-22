@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "../../api/axios";
 import { useHistory } from "react-router-dom";
 
-const Admin = ({ setSenseForToken }) => {
+const Admin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState({});
@@ -30,7 +30,7 @@ const Admin = ({ setSenseForToken }) => {
         setTimeout(() => {
           history.push("/");
           setMessage({});
-        }, 2000);
+        }, 1000);
       })
       .catch(({ response: err }) => {
         // console.log("false");

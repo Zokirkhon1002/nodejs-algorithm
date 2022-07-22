@@ -59,12 +59,14 @@ const getProductBySearch = async (req, res) => {
     if (!products.length) {
       return res.status(404).json({
         state: false,
-        msg: "Not Found",
+        msg: "Not Found!",
         data: products,
       });
     }
-    const filteredProducts = products.filter(({ title: i }) =>
-      i.toLowerCase().includes(j.toLowerCase())
+    const filteredProducts = products.filter(
+      ({ title: i, category: c }) =>
+        i.toLowerCase().includes(j.toLowerCase()) ||
+        c.toLowerCase().includes(j.toLowerCase())
     );
 
     if (!filteredProducts.length) {
