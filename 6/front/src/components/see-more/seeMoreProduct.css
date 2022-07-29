@@ -1,0 +1,19 @@
+.see-more {
+  text-align: center;
+}
+.wrapper1 {
+  height: auto;
+  display: flex !important;
+  flex-wrap: wrap;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}

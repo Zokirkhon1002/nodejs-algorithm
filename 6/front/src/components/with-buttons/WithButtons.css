@@ -1,0 +1,44 @@
+.with_button {
+  text-align: center;
+}
+.with_button .innerBtn {
+  margin: 2px;
+  padding: 4px 10px;
+  color: #fff;
+  background: rgb(16, 133, 249);
+  border: none;
+  border-radius: 5px;
+  cursor: 4px;
+  cursor: pointer;
+}
+.innerBtn.active {
+  background: rgb(125, 187, 249);
+}
+.wrapper1 {
+  height: auto;
+  display: flex !important;
+  flex-wrap: wrap;
+}
+
+h1 {
+  text-align: center;
+}
+.right,
+.left {
+  padding: 4px 10px;
+  color: rgb(16, 133, 249);
+  background-color: transparent;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+.right:disabled,
+.left:disabled {
+  color: rgb(125, 187, 249);
+  cursor: not-allowed;
+}
+.right > *,
+.left > * {
+  margin-top: 20px;
+  margin-bottom: -5px;
+}

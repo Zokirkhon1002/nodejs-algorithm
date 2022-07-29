@@ -1,0 +1,63 @@
+.login{
+    width: 100%;
+    height: 100vh;
+    background: #f7f7f7;
+    text-align: center;
+}
+.sign{
+    width: 400px;
+    height: 500px;
+    background: #fff;
+    margin: 30px auto;
+    padding: 20px;
+}
+.warning{
+    width: 100%;
+    height: 40px;
+    margin: 12px 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+.warning.danger{
+    background-color: crimson;
+}
+.warning.success{
+    background-color: #03b103;
+}
+.inp_item{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    outline: none;
+    text-indent: 12px;
+}
+.login_btn{
+    width: 100%;
+    height: 40px;
+    background-color: dodgerblue;
+    color: #fff;
+    border: none;
+    text-transform: uppercase;
+}
+.login_btn:hover{
+    opacity: .7;
+    cursor: pointer;
+}
+.login_btn:disabled{
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+.anime{
+    animation: anime 0.2s 4 alternate ;
+}
+@keyframes anime {
+    to{
+        transform: scale(0.97);
+        opacity: .7;
+    }
+}
