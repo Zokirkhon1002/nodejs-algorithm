@@ -16,6 +16,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/sort", async (req, res) => {
+  try {
+    let products = await Products.find({
+      price: { $gte: 500 },
+      category: { $in: ["laptop", "phone"] },
+    })
+      .limit()
+      .sort({ title: 1 })
+      .select({ title: 1, price: 1, url: 1, category: 1 });
+
+    if (!products) {
+      return res.json({ msg: "Empty", data: products, state: false });
+    }
+
+    res.json({ state: true, data: products, msg: "success" });
+  } catch (err) {
+    res.json("something went wrong");
+  }
+});
+
 router.get("/category/:name", async (req, res) => {
   try {
     const products = await Products.find({ category: req.params.name });
